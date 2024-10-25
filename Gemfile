@@ -1,5 +1,5 @@
-# source 'https://gems.ruby-china.com/' # Use the Ruby China mirror
-source 'https://rubygems.org'
+source 'https://gems.ruby-china.com/' # Use the Ruby China mirror
+# source 'https://rubygems.org'
 group :jekyll_plugins do
     gem 'observer'
     gem 'classifier-reborn'
