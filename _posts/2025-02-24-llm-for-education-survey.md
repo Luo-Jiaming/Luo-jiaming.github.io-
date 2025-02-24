@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LLM for education 调研
+title: LLM for Education 调研
 date: 2025-02-16 00:00:00
 tags: LLM-for-Education
 categories: paper-sharing 
@@ -8,7 +8,7 @@ toc:
   sidebar: left
 ---
 
-近年来，随着大规模语言模型（LLM）的迅速发展，人工智能在教育领域的应用正迎来前所未有的机遇。LLM在辅助学生学习、辅助教师教学方面都起到巨大的作用，并允许为学生定制个性化的学习路线。本文基于Squirrel AI的[综述文章](https://arxiv.org/abs/2403.18105)和收集相关论文的[github仓库](https://github.com/Geralt-Targaryen/Awesome-Education-LLM)对LLM for education进行调研。
+近年来，随着大规模语言模型（LLM）的迅速发展，人工智能在教育领域的应用正迎来前所未有的机遇。LLM在辅助学生学习、辅助教师教学方面都起到巨大的作用，并允许为学生定制个性化的学习路线。本文基于Squirrel AI的[综述文章](https://arxiv.org/abs/2403.18105)和收集相关论文的[github仓库](https://github.com/Geralt-Targaryen/Awesome-Education-LLM)对LLM for Education进行调研。
 
 根据综述文章，LLM在教育界的应用主要可以分为四类：首先是**学生辅助** (Student Assistance)，包括问题求解 (Question Solving)、错误纠正 (Error Correction) 和困惑辅助 (Confusion Helper)，旨在为学生提供答疑与个性化反馈；其次是**教师辅助** (Teacher Assistance)，涵盖问题生成 (Question Generation)、自动评分 (Automatic Grading) 及教材生成 (Material Creation)，帮助教师减轻日常教学负担；第三是**自适应学习** (Adaptive Learning)，利用知识追踪 (Knowledge Tracing) 和内容个性化 (Content Personalizing) 根据学生表现定制学习路径或适应学生水平的材料；最后是具体落地的**教育工具包** (Education Toolkit)，为构建智能化教学生态系统提供全面支持。此外，**AIGC Detection in Education**也是一个比较有意思且具有应用价值的领域。下图是综述文章中的分类图。
 
@@ -71,7 +71,7 @@ LLM也具有生成练习题以外的其他教学材料的潜力。
 研究旨在解决教育材料的可读性调整问题，特别是如何根据不同学生的阅读能力生成适当难度的文本。提出了一个“分级文本生成”任务，即根据目标可读性水平（如Lexile评分）重写原始教育文本，同时保持原意。研究使用了三种LLM（GPT-3.5、LLaMA-2 70B和Mixtral 8x7B）进行生成，采用零-shot和少量示例学习（few-shot learning）方法。通过Lexile进行可读性评分。
 
 <br>
-## 2.2  Automatic Grading (AG)
+### 2.2  Automatic Grading (AG)
 
 在 LLM 出现之前，关于自动作业评分系统的研究就已经提出了。然而，由于先前模型学习能力的限制，大多数现有的自动评分算法如**Automatic short answer grading via multiway attention networks** ([link](https://arxiv.org/abs/1909.10166)) 侧重于探索**黄金解答**和**学生答案**之间的语义比较（现在的很多生成式模型就是这么被评估的），而忽略了手动评分过程背后的逻辑考虑。除此之外，提供的解决方案的质量对结果有很大影响（标注要求高）。随着 LLM 的出现，上述挑战变得容易解决。
 
@@ -119,7 +119,7 @@ LLM也具有生成练习题以外的其他教学材料的潜力。
 
 LLM在知识跟踪中的当前使用侧重于根据问题文本和学生使用记录数据生成学生对知识掌握情况的预测（预测学生对特定题目的作答表现或是预测题目的难度等）。本质上还是分类任务。主要用于**推荐**。
 
-**Enhancing Student Performance Prediction on Learnersourced Questions with SGNN-LLM Synergy,** AAAI 2024, [link](https://ojs.aaai.org/index.php/AAAI/article/view/30370) 在线教育通过积累大量题目和学生的回答获得了大量的数据。能通过这些历史记录预测学生的做答表现对于个性化学习、智能推荐与后续教学策略具有重要意义。这篇文章提出使用符号图神经网络SGNN（将学生与试题分别视作二部图两侧的节点；学生对题目的回答被转换为“正确（正边）”或“错误（负边）”，从而构造出一个**带符号的二部图**。预测学生作答正确或错误即为带符号链接预测问题）+ LLM提取的题目特征表示完成这一任务。
+**Enhancing Student Performance Prediction on Learnersourced Questions with SGNN-LLM Synergy,** AAAI 2024, [link](https://ojs.aaai.org/index.php/AAAI/article/view/30370) 在线教育通过积累大量题目和学生的回答获得了大量的数据。能通过这些历史记录预测学生的做答表现对于个性化学习、智能推荐与后续教学策略具有重要意义。这篇文章提出使用符号图神经网络SGNN（将学生与试题分别视作二部图两侧的节点；学生对题目的回答被转换为“正确（正边）”或“错误（负边）”，从而构造出一个**有向二部图**。预测学生作答正确或错误即为有向边预测问题）+ LLM提取的题目特征表示完成这一任务。
 
 **Difficulty-Focused Contrastive Learning for Knowledge Tracing with a Large Language Model-Based Difficulty Prediction**, [link](https://arxiv.org/abs/2312.11890) 这篇文章尝试预测题目的难度。分别预测题目与概念的难度（即到底是知识点难还是题目难）。用对比学习框架CL4KT对题目的难度进行正负映射。利用MonaCoBERT将题目 ID、概念 ID、难度值（包含正、负两个版本）、学生回答的正误信息等分别映射到向量空间。这篇工作应该是下面两篇工作的杂糅：**Monacobert: Monotonic attention based convbert for knowledge tracing** 和 **Contrastive learning for knowledge tracing**。
 
